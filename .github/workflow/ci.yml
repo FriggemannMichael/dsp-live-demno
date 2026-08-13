@@ -1,4 +1,4 @@
-name: Starter CI
+name: Starter CI/line
 on:
   push:
     branches: [ main ]
