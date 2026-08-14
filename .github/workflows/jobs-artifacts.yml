@@ -28,7 +28,7 @@ jobs:
     steps:
       # Der zweite Job läuft auf einer neuen VM und lädt die Datei deshalb erneut herunter.
       - name: Artifact herunterladen
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v4
         with:
           name: demo-message
           path: downloaded

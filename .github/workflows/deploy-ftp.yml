@@ -1,0 +1,25 @@
+# Dieser Workflow zeigt ein reales Deployment: eine statische Website per FTP hochladen.
+name: FTP Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code herunterladen
+        uses: actions/checkout@v4
+
+      # Server, Benutzername und Passwort stehen als GitHub Secrets im Repository
+      # (Settings → Secrets and variables → Actions) und landen nie im Code.
+      - name: Per FTP hochladen
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./public/
+          server-dir: /htdocs/
