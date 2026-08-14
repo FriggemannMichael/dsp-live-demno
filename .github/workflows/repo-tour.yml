@@ -1,0 +1,54 @@
+# Dieser Workflow tut nichts Ernsthaftes - er führt einmal quer durchs
+# Repository und ist der beste erste Workflow zum Ausprobieren: kein Secret,
+# keine externe Abhängigkeit, garantiert grüner Haken.
+name: Repo Tour
+
+on:
+  workflow_dispatch:
+
+jobs:
+  tour:
+    name: Durchs Repo führen
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code herunterladen
+        uses: actions/checkout@v4
+
+      - name: Kopfzeile ausgeben
+        run: |
+          echo "======================================"
+          echo "   Willkommen in der DSO Actions Live Demo"
+          echo "======================================"
+          echo "Runner-OS: ${{ runner.os }}"
+          echo "Repository: ${{ github.repository }}"
+
+      - name: Lauffähige Workflows zählen und auflisten
+        run: |
+          echo
+          echo "-- Läuft wirklich (.github/workflows/) --"
+          find .github/workflows -maxdepth 1 -name "*.yml" | sort
+          count=$(find .github/workflows -maxdepth 1 -name "*.yml" | wc -l)
+          echo "Insgesamt: $count Workflows"
+
+      - name: Referenz-Kategorien durchblättern
+        run: |
+          echo
+          echo "-- Nur zum Nachlesen (examples/) --"
+          for dir in examples/*/; do
+            category=$(basename "$dir")
+            echo "$category:"
+            find "$dir" -name "*.yml" -printf "  - %f\n" | sort
+          done
+
+      - name: Tipp des Tages
+        run: |
+          echo
+          tips=(
+            "Ein Job ohne 'needs' startet sofort und parallel zu anderen Jobs."
+            "workflow_dispatch macht einen Workflow manuell startbar - praktisch zum Testen."
+            "Secrets landen nie im Code, sondern in den Repository-Settings."
+            "concurrency mit cancel-in-progress verhindert doppelte, überlappende Läufe."
+            "Marketplace-Actions lassen sich auf einen Commit-Hash statt einen Tag pinnen."
+            "permissions: contents: read gibt dem GITHUB_TOKEN nur Lesezugriff."
+          )
+          echo "Tipp des Tages: ${tips[$RANDOM % ${#tips[@]}]}"
