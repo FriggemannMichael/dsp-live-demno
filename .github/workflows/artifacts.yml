@@ -1,0 +1,37 @@
+# Dieser Workflow zeigt, wie eine Datei zwischen zwei Jobs übertragen wird.
+name: Artifacts Demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-artifact:
+    name: Datei erstellen
+    runs-on: ubuntu-latest
+    steps:
+      - name: Beispieldatei erzeugen
+        run: |
+          mkdir -p demo-output
+          echo "This file was created by the first job." > demo-output/message.txt
+
+      # Ein Artifact speichert Dateien auch nach dem Ende dieses Jobs.
+      - name: Datei als Artifact hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-message
+          path: demo-output/message.txt
+
+  read-artifact:
+    name: Datei lesen
+    needs: create-artifact
+    runs-on: ubuntu-latest
+    steps:
+      # Der zweite Job läuft auf einer neuen VM und lädt die Datei deshalb erneut herunter.
+      - name: Artifact herunterladen
+        uses: actions/download-artifact@v5
+        with:
+          name: demo-message
+          path: downloaded
+
+      - name: Inhalt anzeigen
+        run: cat downloaded/message.txt

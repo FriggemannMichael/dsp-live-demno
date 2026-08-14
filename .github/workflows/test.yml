@@ -1,11 +1,11 @@
 # Dieser Name wird in der GitHub-Oberfläche unter "Actions" angezeigt.
-name: Starter CI
+name: Test Runner
 
 # "on" legt fest, welches Ereignis den Workflow startet.
 on:
   push:
     # Der Workflow läuft nur bei Änderungen, die auf "main" gepusht werden.
-    branches: [ main ]
+    branches: [main]
 
 # Unter "jobs" stehen die Aufgaben, die der Workflow ausführt.
 jobs:

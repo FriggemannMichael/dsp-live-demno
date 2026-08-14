@@ -1,0 +1,43 @@
+# Dieser Workflow zeigt eine feste Reihenfolge klassischer Pipeline-Phasen.
+name: Ordered Pipeline Demo
+
+# Der Workflow wird bewusst manuell gestartet, damit er unabhängig ausprobiert werden kann.
+on:
+  workflow_dispatch:
+
+jobs:
+  # Der erste Job benötigt keine Abhängigkeit und startet sofort.
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Codeprüfung simulieren
+        run: echo "Lint completed"
+
+  build:
+    name: Build
+    # "needs" verweist auf die Job-ID und lässt diesen Job auf "lint" warten.
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build simulieren
+        run: echo "Build completed"
+
+  test:
+    name: Test
+    # Der Test beginnt nur, wenn der Build erfolgreich war.
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tests simulieren
+        run: echo "Tests completed"
+
+  deploy:
+    name: Deploy
+    # Das Deployment bildet das Ende der Kette und wartet auf den Test.
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      # Das Deployment wird für diese Demo nur durch eine Ausgabe simuliert.
+      - name: Deployment simulieren
+        run: echo "Deploy completed"

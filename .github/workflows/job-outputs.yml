@@ -1,0 +1,31 @@
+# Dieser Workflow zeigt, wie ein Job einen kleinen Wert an einen anderen Job übergibt.
+name: Job Outputs Demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-message:
+    name: Nachricht erzeugen
+    runs-on: ubuntu-latest
+
+    # Ein Job-Output macht den Step-Output für andere Jobs verfügbar.
+    outputs:
+      greeting: ${{ steps.create-output.outputs.greeting }}
+
+    steps:
+      - name: Output erzeugen
+        # Über diese ID wird der Step-Output oben angesprochen.
+        id: create-output
+        # GITHUB_OUTPUT ist eine von GitHub bereitgestellte Datei für Step-Outputs.
+        run: echo "greeting=Hallo vom ersten Job" >> "$GITHUB_OUTPUT"
+
+  show-message:
+    name: Nachricht verwenden
+    # Durch "needs" wartet dieser Job und erhält Zugriff auf dessen Outputs.
+    needs: create-message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output des ersten Jobs ausgeben
+        run: |
+          echo "Received: ${{ needs.create-message.outputs.greeting }}"

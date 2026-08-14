@@ -1,0 +1,28 @@
+# Dieser Name wird in der GitHub-Oberfläche unter "Actions" angezeigt.
+name: Manual Run Demo
+
+# "on" legt fest, welches Ereignis den Workflow startet.
+on:
+  # Zeigt in GitHub Actions die Schaltfläche "Run workflow" für einen manuellen Start an.
+  workflow_dispatch:
+    # Diese Eingabefelder werden vor dem manuellen Start angezeigt.
+    inputs:
+      # "environments" ist die ID des Eingabefelds und kann unten wiederverwendet werden.
+      environments:
+        # Dieser Hilfetext wird in der GitHub-Oberfläche angezeigt.
+        description: Target environment
+        # Ohne einen Wert kann der Workflow nicht gestartet werden.
+        required: true
+        # Dieser Wert ist bereits vorausgewählt und kann beim Start geändert werden.
+        default: staging
+
+# Unter "jobs" stehen die Aufgaben, die der Workflow ausführt.
+jobs:
+  # "deploy" ist die frei wählbare, interne ID dieses Jobs.
+  deploy:
+    # GitHub stellt für den Job eine aktuelle Ubuntu-VM bereit.
+    runs-on: ubuntu-latest
+    steps:
+      # ${{ ... }} ist ein Ausdruck. Hier wird der zuvor eingegebene Wert eingesetzt.
+      # Der Befehl demonstriert die Eingabe nur und führt noch kein echtes Deployment aus.
+      - run: echo "Deploying to ${{ github.event.inputs.environments }}"
