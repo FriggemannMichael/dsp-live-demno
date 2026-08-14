@@ -17,7 +17,7 @@ jobs:
       - name: Kopfzeile ausgeben
         run: |
           echo "======================================"
-          echo "   Willkommen in der DSO Actions Live Demo"
+          echo "   Willkommen in der gh-actions-repro-tour"
           echo "======================================"
           echo "Runner-OS: ${{ runner.os }}"
           echo "Repository: ${{ github.repository }}"
