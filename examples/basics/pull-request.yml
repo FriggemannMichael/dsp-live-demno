@@ -1,0 +1,21 @@
+# Dieser Workflow zeigt den Trigger "pull_request": er läuft nicht bei jedem
+# Push, sondern nur, wenn ein Pull Request gegen den angegebenen Branch
+# geöffnet oder aktualisiert wird.
+name: Pull Request Demo
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  show-pr-info:
+    name: PR-Informationen anzeigen
+    runs-on: ubuntu-latest
+    steps:
+      # github.event.pull_request enthält Details zum Pull Request.
+      # github.head_ref/base_ref sind bei pull_request-Events zusätzlich verfügbar.
+      - name: Kontext ausgeben
+        run: |
+          echo "Pull Request #${{ github.event.pull_request.number }}"
+          echo "Von Branch: ${{ github.head_ref }}"
+          echo "Nach Branch: ${{ github.base_ref }}"

@@ -1,0 +1,36 @@
+# Dieser Workflow zeigt, wie ein "services"-Container für die Dauer eines
+# Jobs bereitgestellt wird - hier eine Postgres-Datenbank, wie sie echte
+# Tests gegen eine Datenbank benötigen.
+name: Service Container Demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-with-database:
+    name: Mit Datenbank testen
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: demo
+          POSTGRES_PASSWORD: demo
+          POSTGRES_DB: demo
+        ports: ["5432:5432"]
+        # health-cmd sorgt dafür, dass der Job wartet, bis die Datenbank bereit ist.
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: postgresql-client installieren
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      # localhost funktioniert, weil der Service-Container-Port auf den
+      # Runner selbst gemappt ist (siehe "ports" oben).
+      - name: Verbindung zur Datenbank prüfen
+        run: PGPASSWORD=demo psql -h localhost -U demo -d demo -c "SELECT 1;"
