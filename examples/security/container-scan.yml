@@ -1,0 +1,33 @@
+# Dieser Workflow baut ein Docker-Image und scannt es auf bekannte
+# Schwachstellen in den enthaltenen Paketen, bevor es in einem
+# Deploy-Workflow verwendet würde. Setzt ein Dockerfile im Projekt voraus.
+name: Container Scan
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  trivy-scan:
+    name: Image mit Trivy scannen
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code herunterladen
+        uses: actions/checkout@v4
+
+      - name: Image bauen
+        run: docker build -t demo-app:${{ github.sha }} .
+
+      # "--severity HIGH,CRITICAL" blendet niedrig priorisierte Funde aus,
+      # "--exit-code 1" lässt den Job bei Funden fehlschlagen.
+      - name: Image scannen
+        run: |
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            aquasec/trivy:latest image \
+            --severity HIGH,CRITICAL \
+            --exit-code 1 \
+            demo-app:${{ github.sha }}

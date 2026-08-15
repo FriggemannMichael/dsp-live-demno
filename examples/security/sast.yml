@@ -1,0 +1,32 @@
+# SAST (Static Application Security Testing) durchsucht den eigenen
+# Quellcode nach unsicheren Mustern - im Unterschied zum Dependency Audit,
+# der fremden Code (Abhängigkeiten) prüft.
+name: SAST Scan
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  semgrep:
+    name: Code auf unsichere Muster prüfen
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code herunterladen
+        uses: actions/checkout@v4
+
+      - name: Python installieren
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Semgrep installieren
+        run: pip install semgrep
+
+      # "p/security-audit" ist ein von Semgrep gepflegtes, sprachunabhängiges
+      # Regelwerk für allgemeine Sicherheitsprobleme.
+      - name: Semgrep-Scan ausführen
+        run: semgrep scan --config p/security-audit --error
