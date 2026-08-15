@@ -6,6 +6,13 @@ on:
   push:
     # Der Workflow läuft nur bei Änderungen, die auf "main" gepusht werden.
     branches: [ main ]
+  pull_request:
+    # So wird auch jeder vorgeschlagene Beitrag vor dem Zusammenführen geprüft.
+    branches: [ main ]
+
+# Der Workflow muss den Repository-Inhalt nur lesen und erhält keine Schreibrechte.
+permissions:
+  contents: read
 
 # Unter "jobs" stehen die Aufgaben, die der Workflow ausführt.
 jobs:

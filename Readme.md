@@ -44,6 +44,7 @@ Diese Beispiele lassen sich nicht in diesem leeren Repository starten (sie setze
   - [Deployment](#deployment)
     - [FTP-Deploy – statische Website live schieben](#ftp-deploy--statische-website-live-schieben)
     - [Angular Build & Deploy](#angular-build--deploy)
+- [Mitwirken](#mitwirken)
 - [Gesamtziel](#gesamtziel)
 - [Lizenz](#lizenz)
 
@@ -211,6 +212,22 @@ Die wichtigsten Grundprinzipien dabei sind:
 - `needs` verhindert einen Deploy, wenn der Build oder Test fehlschlägt
 - `upload-artifact` und `download-artifact` transportieren das Ergebnis zwischen den Jobs
 - Secrets schützen die Serverzugänge vor dem Code
+
+## Mitwirken
+
+Dieses Repository ist öffentlich und steht unter der MIT-Lizenz. Fehlerkorrekturen,
+verständlichere Erklärungen und neue kleine Beispiele sind ausdrücklich willkommen.
+
+Du brauchst dafür keinen direkten Schreibzugriff: Über **Fork → eigener Branch →
+Pull Request** kannst du eine Änderung vorschlagen. Kleine Textkorrekturen lassen
+sich sogar vollständig über die GitHub-Webseite erledigen. Die ausführliche
+Schritt-für-Schritt-Anleitung steht in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Vor einem Beitrag helfen außerdem diese Dokumente:
+
+- [Verhaltenskodex](CODE_OF_CONDUCT.md)
+- [Sicherheitsrichtlinie](SECURITY.md)
+- die Vorlagen, die GitHub beim Erstellen eines Issues oder Pull Requests anzeigt
 
 ## Gesamtziel
 
