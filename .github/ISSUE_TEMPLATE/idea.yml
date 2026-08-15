@@ -1,0 +1,51 @@
+name: Idee oder neues Beispiel
+description: Schlage eine Verbesserung, Erklärung oder ein neues Lernbeispiel vor.
+title: "[Idee]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke für deine Idee. Gute Vorschläge erklären ein konkretes Lernziel und bleiben möglichst klein.
+
+  - type: textarea
+    id: idea
+    attributes:
+      label: Was schlägst du vor?
+      description: Beschreibe die gewünschte Änderung in einfachen Worten.
+    validations:
+      required: true
+
+  - type: textarea
+    id: benefit
+    attributes:
+      label: Was können Einsteiger dadurch lernen?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: contribution
+    attributes:
+      label: Möchtest du selbst daran arbeiten?
+      options:
+        - Ja, nach kurzer Abstimmung
+        - Vielleicht, ich brauche Unterstützung
+        - Nein, nur als Vorschlag
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Beispiele oder weiterführende Links
+      description: Optional – verlinke offizielle Dokumentation oder ähnliche Beispiele.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Vor dem Absenden
+      options:
+        - label: Ich habe geprüft, dass dazu noch kein passendes Issue existiert.
+          required: true
+        - label: Ich beachte den Verhaltenskodex dieses Projekts.
+          required: true

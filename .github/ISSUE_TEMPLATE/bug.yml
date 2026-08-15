@@ -1,0 +1,63 @@
+name: Fehler melden
+description: Melde einen Fehler in einem Workflow, Beispiel oder Erklärungstext.
+title: "[Fehler]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke für deine Meldung. Bitte veröffentliche hier keine Zugangsdaten oder anderen Secrets.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Betroffener Bereich
+      options:
+        - Lauffähiger Workflow unter .github/workflows
+        - Referenzbeispiel unter examples
+        - README oder andere Dokumentation
+        - Sonstiger Bereich
+    validations:
+      required: true
+
+  - type: input
+    id: file
+    attributes:
+      label: Datei oder Beispiel
+      description: In welcher Datei ist der Fehler zu finden?
+      placeholder: examples/deploy/ftp.yml
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Was ist passiert?
+      description: Beschreibe den Fehler und, wenn möglich, die Schritte dorthin.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Was wäre richtig oder verständlicher?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Zusätzlicher Kontext
+      description: Optional – zum Beispiel Fehlermeldungen, Links oder Screenshots ohne sensible Daten.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Vor dem Absenden
+      options:
+        - label: Ich habe geprüft, dass dazu noch kein passendes Issue existiert.
+          required: true
+        - label: Diese Meldung enthält keine Secrets oder privaten Zugangsdaten.
+          required: true
+        - label: Ich beachte den Verhaltenskodex dieses Projekts.
+          required: true

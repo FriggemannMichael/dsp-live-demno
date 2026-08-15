@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Sicherheitsproblem vertraulich melden
+    url: https://github.com/FriggemannMichael/gh-actions-workflow/security/policy
+    about: Lies zuerst den sicheren Meldeweg und veröffentliche keine sensiblen Details.
