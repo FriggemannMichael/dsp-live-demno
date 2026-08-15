@@ -14,6 +14,23 @@ lernen und beitragen können.
 - andere Sichtweisen respektieren
 - eigene Fehler offen korrigieren
 
+## Neue Workflow-Beiträge aus Forks
+
+Diese Regel gilt für neue oder wesentlich geänderte Workflows, die künftig über
+einen Fork und Pull Request eingereicht werden. Die bereits im Repository
+vorhandenen Workflows sind davon nicht betroffen.
+
+Neue Workflow-Beiträge aus Forks werden nur akzeptiert, wenn sie von der
+einreichenden Person selbst geschrieben, Schritt für Schritt verstanden und bei
+Rückfragen erklärt werden können. Fertige Workflow-Dateien aus anderen Projekten
+sollen nicht unverändert übernommen werden, denn der eigene Lernweg steht im
+Mittelpunkt.
+
+Offizielle Dokumentationen und Beispiele dürfen als Lernhilfe dienen. Auch
+wiederverwendbare Actions wie `actions/checkout` sind als Bausteine erlaubt,
+wenn ihr Zweck verstanden und im Beispiel verständlich erklärt wird. Wesentliche
+übernommene Ideen oder Ausschnitte müssen mit ihrer Quelle gekennzeichnet werden.
+
 ## Nicht akzeptiertes Verhalten
 
 - Beleidigungen, Einschüchterung oder persönliche Angriffe
