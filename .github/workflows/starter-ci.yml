@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Lädt den Inhalt dieses Repositorys auf die VM.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Display runner details
         # "run" führt einen Shell-Befehl aus. runner.os ist eine GitHub-Kontextvariable.
         run: echo "Workflow is running on ${{ runner.os }}"
