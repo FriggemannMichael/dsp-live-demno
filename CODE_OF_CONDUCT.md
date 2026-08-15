@@ -17,8 +17,7 @@ lernen und beitragen können.
 ## Neue Workflow-Beiträge aus Forks
 
 Diese Regel gilt für neue oder wesentlich geänderte Workflows, die künftig über
-einen Fork und Pull Request eingereicht werden. Die bereits im Repository
-vorhandenen Workflows sind davon nicht betroffen.
+einen Fork und Pull Request eingereicht werden.
 
 Neue Workflow-Beiträge aus Forks werden nur akzeptiert, wenn sie von der
 einreichenden Person selbst geschrieben, Schritt für Schritt verstanden und bei
