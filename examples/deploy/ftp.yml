@@ -16,6 +16,9 @@ jobs:
       # Server, Benutzername und Passwort stehen als GitHub Secrets im Repository
       # (Settings → Secrets and variables → Actions) und landen nie im Code.
       - name: Per FTP hochladen
+        # "SamKirkland" ist der GitHub-Benutzername des Entwicklers und
+        # "FTP-Deploy-Action" der Name seines fertigen Bausteins für FTP-Uploads.
+        # GitHub lädt davon die Version v4.3.5 und führt sie für diesen Schritt aus.
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
