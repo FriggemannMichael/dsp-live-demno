@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>gh-actions-workflow</title>
-<meta name="description" content="A small reference repo that teaches GitHub Actions by example — triggers, jobs, CI, and deployment.">
+<meta name="description" content="A small reference repo that teaches GitHub Actions by example — triggers, jobs, CI, deployment, and security.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2312181B'/%3E%3Ccircle cx='12' cy='12' r='5' fill='%234FB477'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -168,7 +168,7 @@
   /* Category grid */
   .categories {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 1px;
     background: var(--paper-border);
     border: 1px solid var(--paper-border);
@@ -267,7 +267,11 @@
   footer a { text-decoration: none; }
   footer a:hover { color: var(--chalk); }
 
-  @media (max-width: 720px) {
+  @media (max-width: 860px) {
+    .categories { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 560px) {
     .categories { grid-template-columns: 1fr 1fr; }
   }
 
@@ -297,6 +301,8 @@
     .node:nth-of-type(5) { animation-delay: 1.3s; }
     .connector:nth-of-type(6) { animation-delay: 1.7s; }
     .node:nth-of-type(7) { animation-delay: 1.9s; }
+    .connector:nth-of-type(8) { animation-delay: 2.3s; }
+    .node:nth-of-type(9) { animation-delay: 2.5s; }
 
     @keyframes nodeIn {
       from { opacity: 0; transform: translateY(3px); }
@@ -326,11 +332,13 @@
       <span class="node">ci</span>
       <span class="connector"></span>
       <span class="node">deploy</span>
+      <span class="connector"></span>
+      <span class="node">security</span>
     </div>
 
     <h1>Learn GitHub Actions<br>by reading real pipelines.</h1>
     <p class="lede">
-      A small, public reference repo for CI/CD: <strong>triggers, jobs, CI, and deployment</strong>,
+      A small, public reference repo for CI/CD: <strong>triggers, jobs, CI, deployment, and security</strong>,
       shown as complete, commented workflow files. Read it, run it, copy it into your own project.
     </p>
 
@@ -360,6 +368,11 @@
       <span class="eyebrow">permissions:</span>
       <h2>Deploy</h2>
       <p>Delivery via FTP, SSH, and GitHub Pages.</p>
+    </a>
+    <a class="category" href="https://github.com/FriggemannMichael/gh-actions-workflow/tree/main/examples/security">
+      <span class="eyebrow">schedule:</span>
+      <h2>Security</h2>
+      <p>Secrets, dependency, SAST, and container scans.</p>
     </a>
   </div>
 
