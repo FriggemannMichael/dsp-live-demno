@@ -16,6 +16,7 @@ All other examples are pure reading material and live as real subfolders under [
 2. **jobs** – dependencies, ordering, variables, outputs, artifacts
 3. **ci** – CI pipelines for a real Node.js and Python project
 4. **deploy** – real delivery via FTP and SSH with secrets
+5. **security** – automated scans: secrets, dependencies, static code analysis, container images
 
 These examples can't be run in this empty repository (they assume a real project or real secrets), but they are complete, commented YAML files meant for reading and reuse in your own projects.
 
@@ -47,6 +48,11 @@ These examples can't be run in this empty repository (they assume a real project
   - [Deployment](#deployment)
     - [FTP deploy – shipping a static website live](#ftp-deploy--shipping-a-static-website-live)
     - [Angular build & deploy](#angular-build--deploy)
+  - [Security](#security)
+    - [Secrets scan](#secrets-scan)
+    - [Dependency audit](#dependency-audit)
+    - [SAST scan](#sast-scan)
+    - [Container scan](#container-scan)
 - [Contributing](#contributing)
 - [Overall goal](#overall-goal)
 - [License](#license)
@@ -111,6 +117,11 @@ The most important project files are organized as follows:
   - **`deploy/`**
     - `ftp.yml`: Real-world example for uploading a static HTML/CSS website via FTP with GitHub secrets.
     - `angular.yml`: Build, test, and deployment of an Angular app via SSH/SCP.
+  - **`security/`**
+    - `secrets-scan.yml`: Scans the repository for accidentally committed credentials with TruffleHog.
+    - `dependency-audit.yml`: Checks Node.js and Python dependencies for known vulnerabilities.
+    - `sast.yml`: Scans the project's own source code for insecure patterns with Semgrep.
+    - `container-scan.yml`: Builds a Docker image and scans it for vulnerabilities with Trivy.
 - `LICENSE`: MIT license – the code may be freely used for learning, copying, and adapting.
 - `Readme.md`: Describes the purpose, structure, and usage of the demo.
 
@@ -228,6 +239,26 @@ The key principles here are:
 - secrets protect the server credentials from the code
 
 For a secret-less deployment model as a contrast to these two, see [Pages deploy](#pages-deploy) above – it's a real, runnable workflow in this repository rather than a reference-only example.
+
+### Security
+
+All four workflows below trigger on `pull_request`, except the secrets scan – they're meant to catch problems before code reaches `main`.
+
+#### Secrets scan
+
+`examples/security/secrets-scan.yml` searches the repository for accidentally committed credentials with [TruffleHog](https://github.com/trufflesecurity/trufflehog). It runs on `workflow_dispatch`, on every push to `main`, and additionally on a weekly `schedule` (cron), so older, unchanged commits get checked again periodically too. The action is pinned to an immutable commit hash instead of a tag, which prevents a tag that's later tampered with from silently running different code.
+
+#### Dependency audit
+
+`examples/security/dependency-audit.yml` checks a project's dependencies for known vulnerabilities (Software Composition Analysis / SCA) – it complements `examples/ci/frontend.yml` and `backend.yml` with a security check. The `audit-frontend` job runs `npm audit --audit-level=high`, and `audit-backend` runs `pip-audit`; both only fail the job for severe or critical findings.
+
+#### SAST scan
+
+`examples/security/sast.yml` runs [Semgrep](https://semgrep.dev/) against the project's own source code, using the `p/security-audit` rule set. Unlike the dependency audit, which checks third-party code, SAST (Static Application Security Testing) looks for insecure patterns in code you wrote yourself.
+
+#### Container scan
+
+`examples/security/container-scan.yml` builds a Docker image and scans it with [Trivy](https://github.com/aquasecurity/trivy) for known vulnerabilities in its packages, before the image would be used in a deploy workflow. `--severity HIGH,CRITICAL` filters out low-priority findings, and `--exit-code 1` fails the job if anything is found.
 
 ## Contributing
 
