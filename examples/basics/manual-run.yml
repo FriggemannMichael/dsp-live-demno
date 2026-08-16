@@ -1,28 +1,28 @@
-# Dieser Name wird in der GitHub-Oberfläche unter "Actions" angezeigt.
+# This name is shown in the GitHub UI under "Actions".
 name: Manual Run Demo
 
-# "on" legt fest, welches Ereignis den Workflow startet.
+# "on" defines which event triggers the workflow.
 on:
-  # Zeigt in GitHub Actions die Schaltfläche "Run workflow" für einen manuellen Start an.
+  # Shows the "Run workflow" button in GitHub Actions for a manual start.
   workflow_dispatch:
-    # Diese Eingabefelder werden vor dem manuellen Start angezeigt.
+    # These input fields are shown before the manual start.
     inputs:
-      # "environments" ist die ID des Eingabefelds und kann unten wiederverwendet werden.
+      # "environments" is the ID of the input field and can be reused below.
       environments:
-        # Dieser Hilfetext wird in der GitHub-Oberfläche angezeigt.
+        # This help text is shown in the GitHub UI.
         description: Target environment
-        # Ohne einen Wert kann der Workflow nicht gestartet werden.
+        # The workflow can't be started without a value.
         required: true
-        # Dieser Wert ist bereits vorausgewählt und kann beim Start geändert werden.
+        # This value is preselected and can be changed at start.
         default: staging
 
-# Unter "jobs" stehen die Aufgaben, die der Workflow ausführt.
+# "jobs" holds the tasks the workflow runs.
 jobs:
-  # "deploy" ist die frei wählbare, interne ID dieses Jobs.
+  # "deploy" is the freely chosen, internal ID of this job.
   deploy:
-    # GitHub stellt für den Job eine aktuelle Ubuntu-VM bereit.
+    # GitHub provides a current Ubuntu VM for the job.
     runs-on: ubuntu-latest
     steps:
-      # ${{ ... }} ist ein Ausdruck. Hier wird der zuvor eingegebene Wert eingesetzt.
-      # Der Befehl demonstriert die Eingabe nur und führt noch kein echtes Deployment aus.
+      # ${{ ... }} is an expression. Here it inserts the previously entered value.
+      # The command only demonstrates the input and doesn't perform a real deployment yet.
       - run: echo "Deploying to ${{ github.event.inputs.environments }}"
