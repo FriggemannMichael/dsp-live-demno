@@ -1,0 +1,34 @@
+# This workflow shows a build matrix: the same job runs multiple times in
+# parallel, once for each value listed under "strategy.matrix". Useful for
+# checking that a project works across several runtime versions at once.
+name: Matrix Testing
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    # Each entry in "node-version" spawns its own copy of this job.
+    # GitHub Actions shows them separately, e.g. "test (18)", "test (20)".
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      # ${{ matrix.node-version }} inserts the current value from the list above.
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test

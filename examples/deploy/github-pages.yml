@@ -1,0 +1,52 @@
+# This workflow shows GitHub's native deployment model: instead of secrets
+# for an external server (see ftp.yml, angular.yml), the job gets a
+# short-lived OIDC token from GitHub itself and uses it to publish to
+# GitHub Pages. No credentials are stored anywhere.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+# "pages: write" allows publishing to Pages, "id-token: write" allows
+# GitHub to issue the short-lived OIDC token used for that publish.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one Pages deployment should run at a time; a new push shouldn't be
+# cancelled halfway through, so "cancel-in-progress" stays false here.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      # Prepares the given folder as a downloadable artifact in the format
+      # the deploy-pages action expects. Replace "./public" with the
+      # folder that contains your built site.
+      - name: Upload site as Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    # The "github-pages" environment is what grants this job the OIDC
+    # token; its URL is filled in from the deployment step's output.
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
