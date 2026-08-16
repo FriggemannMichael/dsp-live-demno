@@ -1,32 +1,32 @@
-# Dieser Workflow zeigt, wie mehrere Jobs vor einem gemeinsamen Folgejob laufen.
+# This workflow shows how multiple jobs run before a shared follow-up job.
 name: Job Dependencies Demo
 
-# Der Workflow wird bewusst manuell gestartet, damit er unabhängig ausprobiert werden kann.
+# The workflow is deliberately triggered manually so it can be tried independently.
 on:
   workflow_dispatch:
 
 jobs:
-  # "build" und "test" besitzen kein "needs" und können deshalb parallel starten.
+  # "build" and "test" have no "needs" and can therefore start in parallel.
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Build simulieren
+      - name: Simulate build
         run: echo "Build completed"
 
   test:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - name: Tests simulieren
+      - name: Simulate tests
         run: echo "Tests completed"
 
   deploy:
     name: Deploy
-    # Dieser Job wartet, bis sowohl "build" als auch "test" erfolgreich waren.
+    # This job waits until both "build" and "test" have succeeded.
     needs: [build, test]
     runs-on: ubuntu-latest
     steps:
-      # Das Deployment wird für diese Demo nur durch eine Ausgabe simuliert.
-      - name: Deployment simulieren
+      # The deployment is only simulated with an output for this demo.
+      - name: Simulate deployment
         run: echo "Deploy starts after build and test"

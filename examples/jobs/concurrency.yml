@@ -1,25 +1,25 @@
-# Dieser Workflow zeigt, wie "concurrency" verhindert, dass mehrere Läufe
-# gleichzeitig aktiv sind. Wird er ein zweites Mal gestartet, während der
-# erste Lauf noch aktiv ist, bricht "cancel-in-progress" den ersten Lauf ab.
+# This workflow shows how "concurrency" prevents multiple runs from being
+# active at the same time. If it's started a second time while the first
+# run is still active, "cancel-in-progress" cancels the first run.
 name: Concurrency Demo
 
 on:
   workflow_dispatch:
 
-# Alle Läufe mit derselben "group" teilen sich diese Regel.
+# All runs with the same "group" share this rule.
 concurrency:
   group: concurrency-demo
   cancel-in-progress: true
 
 jobs:
   simulate-long-task:
-    name: Langen Task simulieren
+    name: Simulate long task
     runs-on: ubuntu-latest
     steps:
-      # Zum Ausprobieren: Diesen Workflow zweimal kurz hintereinander manuell
-      # starten. Der erste Lauf wird abgebrochen, sobald der zweite startet.
-      - name: Warten und Ausgabe
+      # To try it out: start this workflow manually twice in quick succession.
+      # The first run gets cancelled as soon as the second one starts.
+      - name: Wait and print output
         run: |
-          echo "Task gestartet..."
+          echo "Task started..."
           sleep 30
-          echo "Task abgeschlossen."
+          echo "Task completed."

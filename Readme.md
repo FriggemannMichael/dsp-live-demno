@@ -1,144 +1,144 @@
 # DSO Actions Live Demo
 
-Dieses Repository zeigt verschiedene GitHub-Actions-Beispiele für den Einstieg in CI/CD. Es ist so aufgebaut, dass es als kleines, öffentliches Referenzprojekt für Workflows, Triggers, Jobs und Deployment-Szenarien genutzt werden kann.
+This repository showcases various GitHub Actions examples for getting started with CI/CD. It's set up to serve as a small, public reference project for workflows, triggers, jobs, and deployment scenarios.
 
-## Überblick
+## Overview
 
-GitHub führt Workflows nur aus Dateien direkt in `.github/workflows/` aus – Unterordner werden dort ignoriert. Damit dieser Ordner trotzdem übersichtlich bleibt, liegen dort nur zwei Dateien:
+GitHub only runs workflows from files directly inside `.github/workflows/` – subfolders are ignored there. To keep that folder tidy, it only contains two files:
 
-- `starter-ci.yml` – der einfachste mögliche Workflow (Push → Checkout → `echo`)
-- `repo-tour.yml` – ein kleiner Bonus-Workflow, der spielerisch durchs Repository führt
+- `starter-ci.yml` – the simplest possible workflow (push → checkout → `echo`)
+- `repo-tour.yml` – a small bonus workflow that playfully walks through the repository
 
-Alle weiteren Beispiele sind reines Lesematerial und liegen als echte Unterordner unter [`examples/`](examples/), sortiert nach dem, was sie zeigen:
+All other examples are pure reading material and live as real subfolders under [`examples/`](examples/), sorted by what they demonstrate:
 
-1. **basics** – weitere Trigger (`push`, `workflow_dispatch`)
-2. **jobs** – Abhängigkeiten, Reihenfolge, Variablen, Outputs, Artifacts
-3. **ci** – CI-Pipelines für ein echtes Node.js- und Python-Projekt
-4. **deploy** – echte Auslieferung per FTP und SSH mit Secrets
+1. **basics** – additional triggers (`push`, `workflow_dispatch`)
+2. **jobs** – dependencies, ordering, variables, outputs, artifacts
+3. **ci** – CI pipelines for a real Node.js and Python project
+4. **deploy** – real delivery via FTP and SSH with secrets
 
-Diese Beispiele lassen sich nicht in diesem leeren Repository starten (sie setzen ein echtes Projekt oder echte Secrets voraus), sind aber vollständige, kommentierte YAML-Dateien zum Nachlesen und Übernehmen in eigene Projekte.
+These examples can't be run in this empty repository (they assume a real project or real secrets), but they are complete, commented YAML files meant for reading and reuse in your own projects.
 
-## Inhaltsverzeichnis
+## Table of contents
 
-- [Schnellstart](#schnellstart)
-  - [Voraussetzungen](#voraussetzungen)
-  - [Starter CI ausprobieren](#starter-ci-ausprobieren)
-  - [Repo Tour manuell starten](#repo-tour-manuell-starten)
-- [Repository-Struktur](#repository-struktur)
-- [Lauffähige Workflows](#lauffähige-workflows)
+- [Quick start](#quick-start)
+  - [Prerequisites](#prerequisites)
+  - [Try Starter CI](#try-starter-ci)
+  - [Run Repo Tour manually](#run-repo-tour-manually)
+- [Repository structure](#repository-structure)
+- [Runnable workflows](#runnable-workflows)
   - [Starter CI](#starter-ci)
   - [Repo Tour](#repo-tour)
-- [Referenz-Beispiele (`examples/`)](#referenz-beispiele-examples)
+- [Reference examples (`examples/`)](#reference-examples-examples)
   - [Basics](#basics)
     - [Test Runner](#test-runner)
     - [Manual Run Demo](#manual-run-demo)
-  - [Jobs & Datenaustausch](#jobs--datenaustausch)
-    - [Jobs verbinden](#jobs-verbinden)
-    - [Pipeline-Phasenreihenfolge](#pipeline-phasenreihenfolge)
-    - [Umgebungsvariablen](#umgebungsvariablen)
-    - [Werte zwischen Jobs weitergeben](#werte-zwischen-jobs-weitergeben)
-    - [Artefakte zwischen Jobs übertragen](#artefakte-zwischen-jobs-übertragen)
-  - [CI für echte Projekte](#ci-für-echte-projekte)
+  - [Jobs & data exchange](#jobs--data-exchange)
+    - [Connecting jobs](#connecting-jobs)
+    - [Pipeline stage order](#pipeline-stage-order)
+    - [Environment variables](#environment-variables)
+    - [Passing values between jobs](#passing-values-between-jobs)
+    - [Transferring artifacts between jobs](#transferring-artifacts-between-jobs)
+  - [CI for real projects](#ci-for-real-projects)
     - [Frontend CI – Node.js](#frontend-ci--nodejs)
     - [Backend CI – Python](#backend-ci--python)
   - [Deployment](#deployment)
-    - [FTP-Deploy – statische Website live schieben](#ftp-deploy--statische-website-live-schieben)
-    - [Angular Build & Deploy](#angular-build--deploy)
-- [Mitwirken](#mitwirken)
-- [Gesamtziel](#gesamtziel)
-- [Lizenz](#lizenz)
+    - [FTP deploy – shipping a static website live](#ftp-deploy--shipping-a-static-website-live)
+    - [Angular build & deploy](#angular-build--deploy)
+- [Contributing](#contributing)
+- [Overall goal](#overall-goal)
+- [License](#license)
 
-## Schnellstart
+## Quick start
 
-### Voraussetzungen
+### Prerequisites
 
-- ein GitHub-Konto
-- dieses Projekt als GitHub-Repository
-- aktivierte GitHub Actions im Repository
-- Schreibzugriff auf das Repository, wenn ein Workflow gestartet oder eine Änderung gepusht werden soll
+- a GitHub account
+- this project as a GitHub repository
+- GitHub Actions enabled in the repository
+- write access to the repository if you want to trigger a workflow or push a change
 
-Für diese Demo müssen keine Pakete installiert und keine Anwendung lokal gestartet werden. Die Workflows laufen vollständig auf GitHub.
+No packages need to be installed and no application needs to run locally for this demo. The workflows run entirely on GitHub.
 
-### Starter CI ausprobieren
+### Try Starter CI
 
-`Starter CI` reagiert auf einen Push auf den Branch `main`.
+`Starter CI` reacts to a push on the `main` branch.
 
-1. Ändere eine Datei im Repository.
-2. Erstelle einen Commit mit der Änderung.
-3. Pushe den Commit auf `main`.
-4. Öffne im GitHub-Repository den Bereich **Actions**.
-5. Wähle den Workflow-Lauf aus, um seine Jobs, Schritte und Ausgaben anzusehen.
+1. Change a file in the repository.
+2. Create a commit with the change.
+3. Push the commit to `main`.
+4. Open the **Actions** tab in the GitHub repository.
+5. Select the workflow run to see its jobs, steps, and output.
 
-Der Workflow lädt das Repository auf einen Ubuntu-Runner und gibt anschließend das Betriebssystem des Runners aus.
+The workflow checks out the repository onto an Ubuntu runner and then prints the runner's operating system.
 
-### Repo Tour manuell starten
+### Run Repo Tour manually
 
-`Repo Tour` wird nicht durch einen Push ausgelöst, sondern über die GitHub-Oberfläche:
+`Repo Tour` isn't triggered by a push, but through the GitHub UI:
 
-1. Öffne im Repository den Bereich **Actions**.
-2. Wähle links **Repo Tour** aus.
-3. Klicke auf **Run workflow**.
-4. Öffne nach der Ausführung den Workflow-Lauf und lies dir die Ausgabe durch.
+1. Open the **Actions** tab in the repository.
+2. Select **Repo Tour** on the left.
+3. Click **Run workflow**.
+4. After it runs, open the workflow run and read through the output.
 
-> **Hinweis:** Ein manuell startbarer Workflow wird in GitHub normalerweise erst angezeigt, nachdem seine Workflow-Datei auf dem Standardbranch vorhanden ist.
+> **Note:** A manually triggered workflow is normally only shown in GitHub once its workflow file exists on the default branch.
 
-## Repository-Struktur
+## Repository structure
 
-Die wichtigsten Projektdateien sind folgendermaßen organisiert:
+The most important project files are organized as follows:
 
-- `.github/workflows/` – läuft wirklich, flach (GitHub führt nur von hier aus)
-  - `starter-ci.yml`: Einfachster Workflow – Push, Checkout, eine `echo`-Ausgabe.
-  - `repo-tour.yml`: Führt einmal quer durchs Repository – der beste erste Workflow zum Ausprobieren.
-- `examples/` – nur zum Nachlesen und Übernehmen, echte Unterordner nach Kategorie
+- `.github/workflows/` – actually runs, flat (GitHub only executes from here)
+  - `starter-ci.yml`: Simplest workflow – push, checkout, an `echo` output.
+  - `repo-tour.yml`: Walks once through the repository – the best first workflow to try.
+- `examples/` – for reading and reuse only, real subfolders by category
   - **`basics/`**
-    - `test-runner.yml`: Zweiter automatischer Beispiel-Workflow, zeigt, dass ein Ereignis mehrere Workflows auslösen kann.
-    - `manual-run.yml`: Manuell startbarer Workflow mit einer Eingabe für die Zielumgebung.
+    - `test-runner.yml`: Second automatic example workflow, shows that one event can trigger multiple workflows.
+    - `manual-run.yml`: Manually triggered workflow with an input for the target environment.
   - **`jobs/`**
-    - `dependencies.yml`: Verbindet zwei parallele Jobs mit einem gemeinsamen Folgejob.
-    - `ordered-pipeline.yml`: Bildet eine feste Pipeline-Reihenfolge mit vier Jobs ab.
-    - `environment-variables.yml`: Zeigt die Gültigkeitsbereiche von Umgebungsvariablen.
-    - `outputs.yml`: Übergibt einen kleinen Textwert von einem Job an einen Folgejob.
-    - `artifacts.yml`: Überträgt eine Datei zwischen zwei Jobs.
+    - `dependencies.yml`: Connects two parallel jobs with a shared follow-up job.
+    - `ordered-pipeline.yml`: Models a fixed pipeline order with four jobs.
+    - `environment-variables.yml`: Shows the scopes of environment variables.
+    - `outputs.yml`: Passes a small text value from one job to a follow-up job.
+    - `artifacts.yml`: Transfers a file between two jobs.
   - **`ci/`**
-    - `frontend.yml`: CI-Workflow für ein Node.js-Frontend mit Install, Test und Build.
-    - `backend.yml`: CI-Workflow für ein Python-Backend mit Install, Test und pytest.
+    - `frontend.yml`: CI workflow for a Node.js frontend with install, test, and build.
+    - `backend.yml`: CI workflow for a Python backend with install, test, and pytest.
   - **`deploy/`**
-    - `ftp.yml`: Praxisbeispiel für das Hochladen einer statischen HTML/CSS-Website per FTP mit GitHub Secrets.
-    - `angular.yml`: Build, Test und Deployment einer Angular-App per SSH/SCP.
-- `LICENSE`: MIT-Lizenz – der Code darf frei zum Lernen, Kopieren und Anpassen verwendet werden.
-- `Readme.md`: Beschreibt Zweck, Aufbau und Verwendung der Demo.
+    - `ftp.yml`: Real-world example for uploading a static HTML/CSS website via FTP with GitHub secrets.
+    - `angular.yml`: Build, test, and deployment of an Angular app via SSH/SCP.
+- `LICENSE`: MIT license – the code may be freely used for learning, copying, and adapting.
+- `Readme.md`: Describes the purpose, structure, and usage of the demo.
 
-## Lauffähige Workflows
+## Runnable workflows
 
-Diese beiden Workflows liegen in `.github/workflows/` und lassen sich in diesem Repository wirklich ausführen.
+These two workflows live in `.github/workflows/` and can actually be run in this repository.
 
 ### Starter CI
 
-`starter-ci.yml` startet bei jedem Push auf `main`. Der Job `build` verwendet `actions/checkout`, um den Repository-Inhalt auf den Runner zu laden. Danach gibt ein Shell-Befehl den Wert der GitHub-Kontextvariable `runner.os` aus.
+`starter-ci.yml` starts on every push to `main`. The `build` job uses `actions/checkout` to load the repository content onto the runner. A shell command then prints the value of the GitHub context variable `runner.os`.
 
 ### Repo Tour
 
-`repo-tour.yml` braucht kein Secret, kein Projekt und geht garantiert nicht rot: Er checkt das Repository aus, gibt eine Kopfzeile aus, zählt die lauffähigen Workflows unter `.github/workflows/`, blättert dann durch die Referenz-Kategorien unter `examples/` und schließt mit einem zufälligen GitHub-Actions-Tipp.
+`repo-tour.yml` needs no secret, no project, and is guaranteed never to go red: it checks out the repository, prints a header, counts the runnable workflows under `.github/workflows/`, then browses through the reference categories under `examples/`, and finishes with a random GitHub Actions tip.
 
-## Referenz-Beispiele (`examples/`)
+## Reference examples (`examples/`)
 
-Alles ab hier liegt unter `examples/`, ist reines Lesematerial und taucht im Actions-Tab von GitHub nicht auf – Unterordner werden von GitHub Actions nicht ausgeführt. Die Dateien sind vollständig und kommentiert, damit sie sich 1:1 in ein eigenes Projekt kopieren lassen.
+Everything from here on lives under `examples/`, is pure reading material, and doesn't show up in GitHub's Actions tab – GitHub Actions doesn't execute subfolders. The files are complete and commented so they can be copied 1:1 into your own project.
 
 ### Basics
 
 #### Test Runner
 
-`examples/basics/test-runner.yml` demonstriert denselben grundlegenden Ablauf wie `starter-ci.yml`. Der separate Workflow eignet sich dazu, in der Actions-Oberfläche zu sehen, dass ein Ereignis mehrere Workflows auslösen kann.
+`examples/basics/test-runner.yml` demonstrates the same basic flow as `starter-ci.yml`. The separate workflow is useful for seeing in the Actions UI that one event can trigger multiple workflows.
 
 #### Manual Run Demo
 
-`examples/basics/manual-run.yml` verwendet den Trigger `workflow_dispatch`. Beim Start kann über das Eingabefeld `environments` eine Zielumgebung angegeben werden. Der Ausdruck `${{ github.event.inputs.environments }}` setzt diesen Wert in den ausgeführten Shell-Befehl ein.
+`examples/basics/manual-run.yml` uses the `workflow_dispatch` trigger. When started, a target environment can be specified via the `environments` input field. The expression `${{ github.event.inputs.environments }}` inserts this value into the shell command that runs.
 
-### Jobs & Datenaustausch
+### Jobs & data exchange
 
-#### Jobs verbinden
+#### Connecting jobs
 
-`examples/jobs/dependencies.yml` enthält die Jobs `build`, `test` und `deploy`. Da `build` und `test` keine Abhängigkeit besitzen, können sie parallel laufen. Der Job `deploy` verwendet `needs: [build, test]` und startet erst, wenn beide vorherigen Jobs erfolgreich waren:
+`examples/jobs/dependencies.yml` contains the jobs `build`, `test`, and `deploy`. Since `build` and `test` have no dependency on each other, they can run in parallel. The `deploy` job uses `needs: [build, test]` and only starts once both preceding jobs have succeeded:
 
 ```text
 build ──┐
@@ -146,104 +146,104 @@ build ──┐
 test ───┘
 ```
 
-Schlägt `build` oder `test` fehl, wird `deploy` standardmäßig übersprungen. Die Job-IDs in `needs` müssen exakt mit den IDs unter `jobs` übereinstimmen.
+If `build` or `test` fails, `deploy` is skipped by default. The job IDs in `needs` must exactly match the IDs under `jobs`.
 
-#### Pipeline-Phasenreihenfolge
+#### Pipeline stage order
 
-GitHub Actions besitzt keine eigene `stages`-Eigenschaft. In `examples/jobs/ordered-pipeline.yml` wird die gewünschte Reihenfolge deshalb als Kette von Job-Abhängigkeiten modelliert:
+GitHub Actions has no built-in `stages` property. In `examples/jobs/ordered-pipeline.yml`, the desired order is therefore modeled as a chain of job dependencies:
 
 ```text
 lint ──> build ──> test ──> deploy
 ```
 
-Jeder Job verwendet `needs`, um auf seinen direkten Vorgänger zu warten. Schlägt eine frühere Phase fehl, werden die davon abhängigen späteren Phasen standardmäßig nicht ausgeführt. Dadurch gelangt beispielsweise kein fehlgeschlagener Build in die Test- oder Deployment-Phase.
+Each job uses `needs` to wait for its direct predecessor. If an earlier stage fails, the later stages that depend on it don't run by default. This ensures, for example, that no failed build reaches the test or deployment stage.
 
-#### Umgebungsvariablen
+#### Environment variables
 
-`examples/jobs/environment-variables.yml` zeigt drei Gültigkeitsbereiche für Variablen. Eine Variable unter dem obersten `env` gilt im gesamten Workflow, eine Variable unter `jobs.<job-id>.env` nur im jeweiligen Job und eine Variable direkt am Step nur in diesem Step.
+`examples/jobs/environment-variables.yml` shows three scopes for variables. A variable under the top-level `env` applies to the whole workflow, a variable under `jobs.<job-id>.env` only to that job, and a variable directly on a step only to that step.
 
-Da der Workflow auf Ubuntu läuft, werden die Werte im Shell-Befehl beispielsweise mit `$APP_NAME` gelesen. Die Ausgabe zeigt, dass alle drei Variablen im letzten Step verfügbar sind.
+Since the workflow runs on Ubuntu, the values are read in the shell command using, for example, `$APP_NAME`. The output shows that all three variables are available in the last step.
 
-#### Werte zwischen Jobs weitergeben
+#### Passing values between jobs
 
-`examples/jobs/outputs.yml` erzeugt im ersten Job einen kleinen Textwert. Der Step schreibt ihn in die von GitHub bereitgestellte Datei `$GITHUB_OUTPUT`. Anschließend wird der Step-Output als Job-Output veröffentlicht.
+`examples/jobs/outputs.yml` generates a small text value in the first job. The step writes it to the file `$GITHUB_OUTPUT` provided by GitHub. The step output is then published as a job output.
 
-Der zweite Job wartet mit `needs: create-message` auf den ersten Job und liest den Wert über `${{ needs.create-message.outputs.greeting }}`. Outputs eignen sich für kleine Werte wie eine Versionsnummer oder einen Status, nicht für ganze Dateien.
+The second job waits for the first job with `needs: create-message` and reads the value via `${{ needs.create-message.outputs.greeting }}`. Outputs are suited to small values like a version number or a status, not entire files.
 
-#### Artefakte zwischen Jobs übertragen
+#### Transferring artifacts between jobs
 
-`examples/jobs/artifacts.yml` erzeugt im ersten Job eine Textdatei und lädt sie mit `actions/upload-artifact` hoch. Der zweite Job läuft auf einer neuen Runner-VM, lädt die Datei mit `actions/download-artifact` herunter und zeigt ihren Inhalt an:
+`examples/jobs/artifacts.yml` creates a text file in the first job and uploads it with `actions/upload-artifact`. The second job runs on a fresh runner VM, downloads the file with `actions/download-artifact`, and prints its content:
 
 ```text
-Datei erstellen ──> Artifact hochladen ──> Artifact herunterladen ──> Datei lesen
+Create file ──> Upload artifact ──> Download artifact ──> Read file
 ```
 
-Artifacts eignen sich beispielsweise für Build-Ergebnisse, Testberichte oder Logdateien.
+Artifacts are useful for things like build results, test reports, or log files.
 
-### CI für echte Projekte
+### CI for real projects
 
 #### Frontend CI – Node.js
 
-`examples/ci/frontend.yml` zeigt den typischen CI-Ablauf für ein Frontend-Projekt: Repository auschecken, Node.js installieren, Abhängigkeiten installieren, Tests ausführen und anschließend den Build prüfen.
+`examples/ci/frontend.yml` shows the typical CI flow for a frontend project: check out the repository, install Node.js, install dependencies, run tests, and then verify the build.
 
 #### Backend CI – Python
 
-`examples/ci/backend.yml` demonstriert denselben Ansatz für Python-Projekte. Nach dem Setup von Python werden die Abhängigkeiten installiert und anschließend mit `pytest` die Tests gestartet.
+`examples/ci/backend.yml` demonstrates the same approach for Python projects. After setting up Python, dependencies are installed and tests are then run with `pytest`.
 
 ### Deployment
 
-#### FTP-Deploy – statische Website live schieben
+#### FTP deploy – shipping a static website live
 
-`examples/deploy/ftp.yml` zeigt ein reales Deployment-Szenario für eine einfache HTML/CSS-Seite. Beim Push auf `main` wird der Inhalt aus einem lokalen Ordner hochgeladen und per FTP auf einen externen Webserver verschoben.
+`examples/deploy/ftp.yml` shows a real deployment scenario for a simple HTML/CSS page. On push to `main`, the content from a local folder is uploaded and pushed to an external web server via FTP.
 
-Wichtig dabei ist die Trennung von Code und Zugangsdaten:
+The key point here is separating code from credentials:
 
-- Server, Benutzername und Passwort stehen nicht im Workflow-Code
-- Sie werden als GitHub Secrets abgespeichert
-- GitHub setzt diese Werte nur zur Laufzeit in den Job ein
+- Server, username, and password don't live in the workflow code
+- They're stored as GitHub secrets
+- GitHub only injects these values into the job at runtime
 
-#### Angular Build & Deploy
+#### Angular build & deploy
 
-`examples/deploy/angular.yml` zeigt einen etwas anderen Ablauf: Zuerst werden Abhängigkeiten installiert, Tests und Build ausgeführt, danach wird der fertige Build als Artifact weitergereicht und per SSH auf einen Server übertragen.
+`examples/deploy/angular.yml` shows a slightly different flow: dependencies are installed first, then tests and build run, after which the finished build is passed on as an artifact and transferred to a server via SSH.
 
-Die wichtigsten Grundprinzipien dabei sind:
+The key principles here are:
 
-- separate Jobs für Build/Test und Deployment
-- `needs` verhindert einen Deploy, wenn der Build oder Test fehlschlägt
-- `upload-artifact` und `download-artifact` transportieren das Ergebnis zwischen den Jobs
-- Secrets schützen die Serverzugänge vor dem Code
+- separate jobs for build/test and deployment
+- `needs` prevents a deploy if the build or test fails
+- `upload-artifact` and `download-artifact` transport the result between jobs
+- secrets protect the server credentials from the code
 
-## Mitwirken
+## Contributing
 
-Dieses Repository ist öffentlich und steht unter der MIT-Lizenz. Fehlerkorrekturen,
-verständlichere Erklärungen und neue kleine Beispiele sind ausdrücklich willkommen.
+This repository is public and licensed under MIT. Bug fixes, clearer
+explanations, and small new examples are explicitly welcome.
 
-Du brauchst dafür keinen direkten Schreibzugriff: Über **Fork → eigener Branch →
-Pull Request** kannst du eine Änderung vorschlagen. Kleine Textkorrekturen lassen
-sich sogar vollständig über die GitHub-Webseite erledigen. Die ausführliche
-Schritt-für-Schritt-Anleitung steht in [CONTRIBUTING.md](CONTRIBUTING.md).
+You don't need direct write access for this: via **fork → own branch →
+pull request** you can propose a change. Small text fixes can even be
+done entirely through the GitHub website. The detailed step-by-step
+guide is in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Vor einem Beitrag helfen außerdem diese Dokumente:
+Before contributing, these documents are also worth a look:
 
-- [Verhaltenskodex](CODE_OF_CONDUCT.md)
-- [Sicherheitsrichtlinie](SECURITY.md)
-- die Vorlagen, die GitHub beim Erstellen eines Issues oder Pull Requests anzeigt
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Security Policy](SECURITY.md)
+- the templates GitHub shows when creating an issue or pull request
 
-## Gesamtziel
+## Overall goal
 
-Dieses Repository soll als kompakte Referenz für GitHub Actions dienen. Es zeigt die wichtigsten Bausteine einer CI/CD-Pipeline auf verständliche Weise:
+This repository is meant to serve as a compact reference for GitHub Actions. It shows the key building blocks of a CI/CD pipeline in an understandable way:
 
-- Trigger
+- Triggers
 - Jobs
 - Steps
 - Uses
 - Run
-- Abhängigkeiten zwischen Jobs
+- Dependencies between jobs
 - Secrets
-- Deployment-Beispiele
+- Deployment examples
 
-Damit lässt sich das Grundprinzip von GitHub Actions gut erklären: Automatisierung von Code-Checks, Tests und Deployment mit klaren, nachvollziehbaren Schritten.
+This makes it easy to explain the basic principle of GitHub Actions: automating code checks, tests, and deployment with clear, traceable steps.
 
-## Lizenz
+## License
 
-Dieses Repository steht unter der [MIT-Lizenz](LICENSE). Der Code darf frei zum Lernen, Kopieren und Anpassen verwendet werden.
+This repository is licensed under the [MIT License](LICENSE). The code may be freely used for learning, copying, and adapting.

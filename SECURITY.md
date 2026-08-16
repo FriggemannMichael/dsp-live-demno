@@ -1,29 +1,27 @@
-# Sicherheitsrichtlinie
+# Security Policy
 
-## Unterstützter Stand
+## Supported version
 
-Dieses Lernprojekt veröffentlicht keine versionierten Produkt-Releases. Bitte
-prüfe Sicherheitsprobleme gegen den aktuellen Stand des Branches `main`.
+This learning project doesn't publish versioned product releases. Please
+check security issues against the current state of the `main` branch.
 
-## Sicherheitsproblem vertraulich melden
+## Reporting a security issue privately
 
-Bitte veröffentliche Sicherheitslücken, Zugangsdaten oder funktionierende
-Angriffsbeispiele nicht in einem öffentlichen Issue.
+Please don't publish security vulnerabilities, credentials, or working
+attack examples in a public issue.
 
-1. Öffne im GitHub-Repository den Bereich **Security**.
-2. Wähle **Advisories** und anschließend **Report a vulnerability**.
-3. Beschreibe betroffene Dateien, mögliche Auswirkungen und nachvollziehbare
-   Schritte zur Reproduktion.
+1. Open the **Security** tab in the GitHub repository.
+2. Select **Advisories** and then **Report a vulnerability**.
+3. Describe the affected files, possible impact, and reproducible steps.
 
-Falls **Report a vulnerability** noch nicht angezeigt wird, nutze eine private
-Kontaktmöglichkeit im
-[GitHub-Profil des Maintainers](https://github.com/FriggemannMichael), um einen
-sicheren Meldeweg zu vereinbaren. Sende dabei zunächst keine Secrets oder
-anderen sensiblen Daten.
+If **Report a vulnerability** isn't shown yet, use a private contact option
+on the
+[maintainer's GitHub profile](https://github.com/FriggemannMichael) to
+arrange a secure way to report. Don't send any secrets or other sensitive
+data upfront.
 
-Eine erste Rückmeldung soll möglichst innerhalb von sieben Tagen erfolgen.
-Nach der Prüfung stimmen Maintainer und meldende Person Veröffentlichung und
-Korrektur miteinander ab.
+An initial response should follow within seven days where possible. After
+review, the maintainer and reporter coordinate on disclosure and the fix.
 
-Allgemeine Fehler, Verständnisfragen und Verbesserungsideen gehören weiterhin
-in ein normales GitHub Issue.
+General bugs, questions, and improvement ideas still belong in a regular
+GitHub issue.

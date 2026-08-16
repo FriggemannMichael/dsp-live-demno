@@ -1,7 +1,7 @@
-# Dependency Audit (Software Composition Analysis / SCA) prüft die
-# Abhängigkeiten eines Projekts auf bekannte Sicherheitslücken. Er ergänzt
-# ci-frontend.yml und ci-backend.yml um einen Security-Check und setzt
-# dieselbe Projektstruktur voraus.
+# Dependency Audit (Software Composition Analysis / SCA) checks a
+# project's dependencies for known security vulnerabilities. It
+# complements ci-frontend.yml and ci-backend.yml with a security check
+# and assumes the same project structure.
 name: Dependency Audit
 
 on:
@@ -13,38 +13,38 @@ permissions:
 
 jobs:
   audit-frontend:
-    name: Node.js-Abhängigkeiten prüfen
+    name: Check Node.js dependencies
     runs-on: ubuntu-latest
     steps:
-      - name: Code herunterladen
+      - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Node.js installieren
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Abhängigkeiten installieren
+      - name: Install dependencies
         run: npm install
 
-      # "audit-level=high" lässt den Job nur bei schweren/kritischen Lücken fehlschlagen.
-      - name: Auf bekannte Schwachstellen prüfen
+      # "audit-level=high" only fails the job for severe/critical vulnerabilities.
+      - name: Check for known vulnerabilities
         run: npm audit --audit-level=high
 
   audit-backend:
-    name: Python-Abhängigkeiten prüfen
+    name: Check Python dependencies
     runs-on: ubuntu-latest
     steps:
-      - name: Code herunterladen
+      - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Python installieren
+      - name: Install Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: pip-audit installieren
+      - name: Install pip-audit
         run: pip install pip-audit
 
-      - name: Auf bekannte Schwachstellen prüfen
+      - name: Check for known vulnerabilities
         run: pip-audit -r requirements.txt

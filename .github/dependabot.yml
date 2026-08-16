@@ -1,6 +1,6 @@
 version: 2
 updates:
-  # Prüft die Actions in .github/workflows einmal pro Woche auf neue Versionen.
+  # Checks the actions in .github/workflows for new versions once a week.
   - package-ecosystem: github-actions
     directory: /
     schedule:

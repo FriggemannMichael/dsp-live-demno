@@ -1,6 +1,6 @@
-# Dieser Workflow zeigt, wie ein "services"-Container für die Dauer eines
-# Jobs bereitgestellt wird - hier eine Postgres-Datenbank, wie sie echte
-# Tests gegen eine Datenbank benötigen.
+# This workflow shows how a "services" container is provided for the
+# duration of a job - here a Postgres database, as needed by real tests
+# that run against a database.
 name: Service Container Demo
 
 on:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   test-with-database:
-    name: Mit Datenbank testen
+    name: Test with database
     runs-on: ubuntu-latest
 
     services:
@@ -19,7 +19,7 @@ jobs:
           POSTGRES_PASSWORD: demo
           POSTGRES_DB: demo
         ports: ["5432:5432"]
-        # health-cmd sorgt dafür, dass der Job wartet, bis die Datenbank bereit ist.
+        # health-cmd makes the job wait until the database is ready.
         options: >-
           --health-cmd pg_isready
           --health-interval 5s
@@ -27,10 +27,10 @@ jobs:
           --health-retries 5
 
     steps:
-      - name: postgresql-client installieren
+      - name: Install postgresql-client
         run: sudo apt-get update && sudo apt-get install -y postgresql-client
 
-      # localhost funktioniert, weil der Service-Container-Port auf den
-      # Runner selbst gemappt ist (siehe "ports" oben).
-      - name: Verbindung zur Datenbank prüfen
+      # localhost works because the service container port is mapped to
+      # the runner itself (see "ports" above).
+      - name: Check database connection
         run: PGPASSWORD=demo psql -h localhost -U demo -d demo -c "SELECT 1;"

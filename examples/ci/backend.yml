@@ -1,4 +1,4 @@
-# Dieser Workflow zeigt dieselbe CI-Idee wie ci-frontend.yml, nur für ein Python-Backend.
+# This workflow shows the same CI idea as ci-frontend.yml, just for a Python backend.
 name: Backend CI
 
 on:
@@ -10,17 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Code herunterladen
+      - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Python installieren
+      - name: Install Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Abhängigkeiten installieren
+      - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # pytest sucht automatisch nach Testdateien und führt sie aus.
-      - name: Tests ausführen
+      # pytest automatically discovers and runs test files.
+      - name: Run tests
         run: pytest

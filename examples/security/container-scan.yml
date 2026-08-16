@@ -1,6 +1,6 @@
-# Dieser Workflow baut ein Docker-Image und scannt es auf bekannte
-# Schwachstellen in den enthaltenen Paketen, bevor es in einem
-# Deploy-Workflow verwendet würde. Setzt ein Dockerfile im Projekt voraus.
+# This workflow builds a Docker image and scans it for known
+# vulnerabilities in its packages before it would be used in a deploy
+# workflow. Assumes a Dockerfile exists in the project.
 name: Container Scan
 
 on:
@@ -12,18 +12,18 @@ permissions:
 
 jobs:
   trivy-scan:
-    name: Image mit Trivy scannen
+    name: Scan image with Trivy
     runs-on: ubuntu-latest
     steps:
-      - name: Code herunterladen
+      - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Image bauen
+      - name: Build image
         run: docker build -t demo-app:${{ github.sha }} .
 
-      # "--severity HIGH,CRITICAL" blendet niedrig priorisierte Funde aus,
-      # "--exit-code 1" lässt den Job bei Funden fehlschlagen.
-      - name: Image scannen
+      # "--severity HIGH,CRITICAL" filters out low-priority findings,
+      # "--exit-code 1" fails the job if anything is found.
+      - name: Scan image
         run: |
           docker run --rm \
             -v /var/run/docker.sock:/var/run/docker.sock \

@@ -1,29 +1,29 @@
-# Dieser Workflow zeigt Variablen auf Workflow-, Job- und Step-Ebene.
+# This workflow shows variables at the workflow, job, and step level.
 name: Environment Variables Demo
 
-# Der Workflow wird manuell gestartet und verändert keine Dateien im Repository.
+# The workflow is triggered manually and doesn't change any files in the repository.
 on:
   workflow_dispatch:
 
-# Diese Variable steht in allen Jobs und Steps dieses Workflows zur Verfügung.
+# This variable is available in all jobs and steps of this workflow.
 env:
   APP_NAME: actions-beginner-demo
 
 jobs:
   show-variables:
-    name: Variablen anzeigen
+    name: Show variables
     runs-on: ubuntu-latest
 
-    # Diese Variable gilt nur innerhalb des Jobs "show-variables".
+    # This variable only applies within the "show-variables" job.
     env:
       TARGET_ENVIRONMENT: training
 
     steps:
-      - name: Variablen ausgeben
-        # Diese Variable ist nur in diesem einzelnen Step verfügbar.
+      - name: Print variables
+        # This variable is only available in this single step.
         env:
-          GREETING: Hallo
-        # Auf einem Ubuntu-Runner werden Umgebungsvariablen mit $NAME gelesen.
+          GREETING: Hello
+        # On an Ubuntu runner, environment variables are read with $NAME.
         run: |
           echo "$GREETING!"
           echo "Application: $APP_NAME"

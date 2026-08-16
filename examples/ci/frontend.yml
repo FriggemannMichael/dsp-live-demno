@@ -1,4 +1,4 @@
-# Dieser Workflow zeigt eine typische Node.js-Frontend-Pipeline: Install, Test, Build.
+# This workflow shows a typical Node.js frontend pipeline: install, test, build.
 name: Frontend CI
 
 on:
@@ -10,21 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Code herunterladen
+      - name: Check out code
         uses: actions/checkout@v4
 
-      # setup-node stellt die passende Node.js-Version bereit und cacht npm-Abhängigkeiten.
-      - name: Node.js installieren
+      # setup-node provides the right Node.js version and caches npm dependencies.
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Abhängigkeiten installieren
+      - name: Install dependencies
         run: npm install
 
-      # Tests laufen vor dem Build, damit fehlerhafter Code gar nicht erst gebaut wird.
-      - name: Tests ausführen
+      # Tests run before the build so broken code never even gets built.
+      - name: Run tests
         run: npm test
 
-      - name: Projekt bauen
+      - name: Build project
         run: npm run build

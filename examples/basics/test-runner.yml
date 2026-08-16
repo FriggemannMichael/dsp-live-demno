@@ -1,21 +1,21 @@
-# Dieser Name wird in der GitHub-Oberfläche unter "Actions" angezeigt.
+# This name is shown in the GitHub UI under "Actions".
 name: Test Runner
 
-# "on" legt fest, welches Ereignis den Workflow startet.
+# "on" defines which event triggers the workflow.
 on:
   push:
-    # Der Workflow läuft nur bei Änderungen, die auf "main" gepusht werden.
+    # The workflow only runs for changes pushed to "main".
     branches: [main]
 
-# Unter "jobs" stehen die Aufgaben, die der Workflow ausführt.
+# "jobs" holds the tasks the workflow runs.
 jobs:
-  # "build" ist die frei wählbare, interne ID dieses Jobs.
+  # "build" is the freely chosen, internal ID of this job.
   build:
-    # GitHub stellt für den Job eine aktuelle Ubuntu-VM bereit.
+    # GitHub provides a current Ubuntu VM for the job.
     runs-on: ubuntu-latest
     steps:
-      # Lädt den Inhalt dieses Repositorys auf die VM.
+      # Loads the content of this repository onto the VM.
       - uses: actions/checkout@v4
       - name: Display runner details
-        # "run" führt einen Shell-Befehl aus. runner.os ist eine GitHub-Kontextvariable.
+        # "run" executes a shell command. runner.os is a GitHub context variable.
         run: echo "Workflow is running on ${{ runner.os }}"
