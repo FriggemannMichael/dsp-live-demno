@@ -1,20 +1,21 @@
 # DSO Actions Live Demo
 
-This repository showcases various GitHub Actions examples for getting started with CI/CD. It's set up to serve as a small, public reference project for workflows, triggers, jobs, and deployment scenarios.
+This repository showcases various GitHub Actions examples for getting started with CI/CD. It's set up to serve as a small, public reference project for workflows, triggers, jobs, and deployment scenarios. It also publishes its own landing page live via GitHub Pages: **[friggemannmichael.github.io/gh-actions-workflow](https://friggemannmichael.github.io/gh-actions-workflow/)**.
 
 ## Overview
 
-GitHub only runs workflows from files directly inside `.github/workflows/` – subfolders are ignored there. To keep that folder tidy, it only contains two files:
+GitHub only runs workflows from files directly inside `.github/workflows/` – subfolders are ignored there. To keep that folder tidy, it only contains three files:
 
 - `starter-ci.yml` – the simplest possible workflow (push → checkout → `echo`)
 - `repo-tour.yml` – a small bonus workflow that playfully walks through the repository
+- `pages.yml` – builds and deploys the [`public/`](public/) folder to GitHub Pages on every push to `main`
 
 All other examples are pure reading material and live as real subfolders under [`examples/`](examples/), sorted by what they demonstrate:
 
 1. **basics** – additional triggers (`push`, `workflow_dispatch`)
 2. **jobs** – dependencies, ordering, variables, outputs, artifacts
 3. **ci** – CI pipelines for a real Node.js and Python project
-4. **deploy** – real delivery via FTP, SSH, and GitHub Pages
+4. **deploy** – real delivery via FTP and SSH with secrets
 
 These examples can't be run in this empty repository (they assume a real project or real secrets), but they are complete, commented YAML files meant for reading and reuse in your own projects.
 
@@ -28,6 +29,7 @@ These examples can't be run in this empty repository (they assume a real project
 - [Runnable workflows](#runnable-workflows)
   - [Starter CI](#starter-ci)
   - [Repo Tour](#repo-tour)
+  - [Pages deploy](#pages-deploy)
 - [Reference examples (`examples/`)](#reference-examples-examples)
   - [Basics](#basics)
     - [Test Runner](#test-runner)
@@ -45,7 +47,6 @@ These examples can't be run in this empty repository (they assume a real project
   - [Deployment](#deployment)
     - [FTP deploy – shipping a static website live](#ftp-deploy--shipping-a-static-website-live)
     - [Angular build & deploy](#angular-build--deploy)
-    - [GitHub Pages deploy](#github-pages-deploy)
 - [Contributing](#contributing)
 - [Overall goal](#overall-goal)
 - [License](#license)
@@ -91,6 +92,8 @@ The most important project files are organized as follows:
 - `.github/workflows/` – actually runs, flat (GitHub only executes from here)
   - `starter-ci.yml`: Simplest workflow – push, checkout, an `echo` output.
   - `repo-tour.yml`: Walks once through the repository – the best first workflow to try.
+  - `pages.yml`: Builds and deploys [`public/`](public/) to GitHub Pages via GitHub's OIDC permissions – no secrets.
+- `public/` – the static site published live by `pages.yml`, a single `index.html`.
 - `examples/` – for reading and reuse only, real subfolders by category
   - **`basics/`**
     - `test-runner.yml`: Second automatic example workflow, shows that one event can trigger multiple workflows.
@@ -108,13 +111,12 @@ The most important project files are organized as follows:
   - **`deploy/`**
     - `ftp.yml`: Real-world example for uploading a static HTML/CSS website via FTP with GitHub secrets.
     - `angular.yml`: Build, test, and deployment of an Angular app via SSH/SCP.
-    - `github-pages.yml`: Deploys a static site to GitHub Pages using GitHub's built-in OIDC permissions, no secrets required.
 - `LICENSE`: MIT license – the code may be freely used for learning, copying, and adapting.
 - `Readme.md`: Describes the purpose, structure, and usage of the demo.
 
 ## Runnable workflows
 
-These two workflows live in `.github/workflows/` and can actually be run in this repository.
+These three workflows live in `.github/workflows/` and can actually be run in this repository.
 
 ### Starter CI
 
@@ -123,6 +125,10 @@ These two workflows live in `.github/workflows/` and can actually be run in this
 ### Repo Tour
 
 `repo-tour.yml` needs no secret, no project, and is guaranteed never to go red: it checks out the repository, prints a header, counts the runnable workflows under `.github/workflows/`, then browses through the reference categories under `examples/`, and finishes with a random GitHub Actions tip.
+
+### Pages deploy
+
+`pages.yml` starts on every push to `main` and publishes [`public/index.html`](public/index.html) to GitHub Pages – the live page linked at the top of this README. Unlike the FTP/SSH deploy examples under `examples/deploy/`, it needs no stored credentials: `permissions: pages: write` and `id-token: write` let GitHub issue a short-lived OIDC token to the job at runtime. The `build` job uploads the `public/` folder with `actions/upload-pages-artifact`, and the `deploy` job publishes it with `actions/deploy-pages`.
 
 ## Reference examples (`examples/`)
 
@@ -221,9 +227,7 @@ The key principles here are:
 - `upload-artifact` and `download-artifact` transport the result between jobs
 - secrets protect the server credentials from the code
 
-#### GitHub Pages deploy
-
-`examples/deploy/github-pages.yml` shows GitHub's own deployment model, as a contrast to the secret-based FTP and SSH examples above. Instead of storing credentials for an external server, the job requests `permissions: pages: write` and `id-token: write`, which lets GitHub issue a short-lived OIDC token at runtime. The `build` job uploads the site folder with `actions/upload-pages-artifact`, and the `deploy` job publishes it with `actions/deploy-pages` – no server, username, or password anywhere in the workflow. This is the only deploy example that could actually run successfully in a copy of this repository, provided GitHub Pages is enabled for it.
+For a secret-less deployment model as a contrast to these two, see [Pages deploy](#pages-deploy) above – it's a real, runnable workflow in this repository rather than a reference-only example.
 
 ## Contributing
 

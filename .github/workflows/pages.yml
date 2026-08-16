@@ -1,7 +1,8 @@
 # This workflow shows GitHub's native deployment model: instead of secrets
-# for an external server (see ftp.yml, angular.yml), the job gets a
-# short-lived OIDC token from GitHub itself and uses it to publish to
-# GitHub Pages. No credentials are stored anywhere.
+# for an external server (see examples/deploy/ftp.yml and angular.yml), the
+# job gets a short-lived OIDC token from GitHub itself and uses it to
+# publish to GitHub Pages. No credentials are stored anywhere. It builds
+# and deploys the site under ./public — the page you're reading right now.
 name: Deploy to GitHub Pages
 
 on:
@@ -26,11 +27,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # Prepares the given folder as a downloadable artifact in the format
-      # the deploy-pages action expects. Replace "./public" with the
-      # folder that contains your built site.
+      # the deploy-pages action expects.
       - name: Upload site as Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
