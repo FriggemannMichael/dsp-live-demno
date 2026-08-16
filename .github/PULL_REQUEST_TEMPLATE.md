@@ -1,23 +1,23 @@
-## Was wurde geändert?
+## What changed?
 
-<!-- Beschreibe die Änderung kurz und verständlich. -->
+<!-- Describe the change briefly and clearly. -->
 
-## Warum ist die Änderung hilfreich?
+## Why is this change helpful?
 
-<!-- Welches Problem wird gelöst oder was können Einsteiger danach besser verstehen? -->
+<!-- What problem does it solve, or what can beginners understand better afterwards? -->
 
-## Wie wurde die Änderung geprüft?
+## How was the change verified?
 
-<!-- Zum Beispiel: YAML geprüft, Links geöffnet oder Beispiel nachvollzogen. -->
+<!-- For example: YAML validated, links opened, or example walked through. -->
 
-## Zugehöriges Issue
+## Related issue
 
-<!-- Optional, zum Beispiel: Closes #12 -->
+<!-- Optional, for example: Closes #12 -->
 
-## Checkliste
+## Checklist
 
-- [ ] Die Änderung ist klein und klar abgegrenzt.
-- [ ] YAML-Dateien verwenden Leerzeichen statt Tabulatoren.
-- [ ] Es wurden keine Secrets, Tokens oder privaten Adressen eingecheckt.
-- [ ] Neue oder geänderte Schritte sind für Einsteiger kommentiert.
-- [ ] Ich habe den Verhaltenskodex gelesen und beachte ihn.
+- [ ] The change is small and clearly scoped.
+- [ ] YAML files use spaces instead of tabs.
+- [ ] No secrets, tokens, or private addresses were committed.
+- [ ] New or changed steps are commented for beginners.
+- [ ] I have read and will follow the Code of Conduct.

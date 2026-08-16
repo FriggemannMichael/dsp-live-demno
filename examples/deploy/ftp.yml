@@ -1,4 +1,4 @@
-# Dieser Workflow zeigt ein reales Deployment: eine statische Website per FTP hochladen.
+# This workflow shows a real deployment: uploading a static website via FTP.
 name: FTP Deploy
 
 on:
@@ -10,15 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Code herunterladen
+      - name: Check out code
         uses: actions/checkout@v4
 
-      # Server, Benutzername und Passwort stehen als GitHub Secrets im Repository
-      # (Settings → Secrets and variables → Actions) und landen nie im Code.
-      - name: Per FTP hochladen
-        # "SamKirkland" ist der GitHub-Benutzername des Entwicklers und
-        # "FTP-Deploy-Action" der Name seines fertigen Bausteins für FTP-Uploads.
-        # GitHub lädt davon die Version v4.3.5 und führt sie für diesen Schritt aus.
+      # Server, username, and password are stored as GitHub secrets in the
+      # repository (Settings → Secrets and variables → Actions) and never
+      # live in the code.
+      - name: Upload via FTP
+        # "SamKirkland" is the developer's GitHub username and
+        # "FTP-Deploy-Action" the name of their ready-made building block
+        # for FTP uploads. GitHub pulls version v4.3.5 and runs it for this step.
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}

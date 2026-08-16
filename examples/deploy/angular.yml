@@ -1,6 +1,6 @@
-# Dieser Workflow zeigt einen zweistufigen Ablauf: erst Build/Test, dann Deployment.
-# Die Trennung in zwei Jobs sorgt dafür, dass ein fehlgeschlagener Build/Test
-# den Deploy-Job gar nicht erst startet (siehe "needs" unten).
+# This workflow shows a two-stage flow: build/test first, then deployment.
+# Splitting it into two jobs ensures a failed build/test never even starts
+# the deploy job (see "needs" below).
 name: Angular Build & Deploy
 
 on:
@@ -12,26 +12,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Code herunterladen
+      - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Node.js installieren
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Abhängigkeiten installieren
+      - name: Install dependencies
         run: npm install
 
-      - name: Tests ausführen
+      - name: Run tests
         run: npm test -- --watch=false --browsers=ChromeHeadless
 
-      - name: Produktions-Build erstellen
+      - name: Create production build
         run: npm run build -- --configuration production
 
-      # Der Build wird als Artifact weitergereicht, weil der Deploy-Job
-      # auf einer neuen, leeren VM startet und keinen Zugriff auf diesen Job hat.
-      - name: Build hochladen
+      # The build is passed on as an artifact because the deploy job
+      # starts on a fresh, empty VM and has no access to this job.
+      - name: Upload build
         uses: actions/upload-artifact@v4
         with:
           name: dist
@@ -42,19 +42,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Build herunterladen
+      - name: Download build
         uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist/
 
-      # Host, Benutzername und SSH-Key liegen als GitHub Secrets vor,
-      # damit keine Zugangsdaten im Code stehen.
-      - name: Per SSH auf Server kopieren
+      # Host, username, and SSH key are stored as GitHub secrets so no
+      # credentials live in the code.
+      - name: Copy to server via SSH
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           source: "dist/*"
-          target: "/var/www/meine-app"
+          target: "/var/www/my-app"

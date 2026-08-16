@@ -1,30 +1,30 @@
-name: Fehler melden
-description: Melde einen Fehler in einem Workflow, Beispiel oder Erklärungstext.
-title: "[Fehler]: "
+name: Report a bug
+description: Report an issue in a workflow, example, or explanatory text.
+title: "[Bug]: "
 labels: []
 body:
   - type: markdown
     attributes:
       value: |
-        Danke für deine Meldung. Bitte veröffentliche hier keine Zugangsdaten oder anderen Secrets.
+        Thanks for your report. Please don't publish any credentials or other secrets here.
 
   - type: dropdown
     id: area
     attributes:
-      label: Betroffener Bereich
+      label: Affected area
       options:
-        - Lauffähiger Workflow unter .github/workflows
-        - Referenzbeispiel unter examples
-        - README oder andere Dokumentation
-        - Sonstiger Bereich
+        - Runnable workflow under .github/workflows
+        - Reference example under examples
+        - README or other documentation
+        - Other area
     validations:
       required: true
 
   - type: input
     id: file
     attributes:
-      label: Datei oder Beispiel
-      description: In welcher Datei ist der Fehler zu finden?
+      label: File or example
+      description: In which file is the bug found?
       placeholder: examples/deploy/ftp.yml
     validations:
       required: true
@@ -32,32 +32,32 @@ body:
   - type: textarea
     id: problem
     attributes:
-      label: Was ist passiert?
-      description: Beschreibe den Fehler und, wenn möglich, die Schritte dorthin.
+      label: What happened?
+      description: Describe the bug and, if possible, the steps to reproduce it.
     validations:
       required: true
 
   - type: textarea
     id: expected
     attributes:
-      label: Was wäre richtig oder verständlicher?
+      label: What would be correct or clearer?
     validations:
       required: true
 
   - type: textarea
     id: context
     attributes:
-      label: Zusätzlicher Kontext
-      description: Optional – zum Beispiel Fehlermeldungen, Links oder Screenshots ohne sensible Daten.
+      label: Additional context
+      description: Optional – for example error messages, links, or screenshots without sensitive data.
 
   - type: checkboxes
     id: checks
     attributes:
-      label: Vor dem Absenden
+      label: Before submitting
       options:
-        - label: Ich habe geprüft, dass dazu noch kein passendes Issue existiert.
+        - label: I checked that no matching issue already exists for this.
           required: true
-        - label: Diese Meldung enthält keine Secrets oder privaten Zugangsdaten.
+        - label: This report contains no secrets or private credentials.
           required: true
-        - label: Ich beachte den Verhaltenskodex dieses Projekts.
+        - label: I will follow this project's Code of Conduct.
           required: true
