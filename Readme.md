@@ -14,7 +14,7 @@ All other examples are pure reading material and live as real subfolders under [
 1. **basics** – additional triggers (`push`, `workflow_dispatch`)
 2. **jobs** – dependencies, ordering, variables, outputs, artifacts
 3. **ci** – CI pipelines for a real Node.js and Python project
-4. **deploy** – real delivery via FTP and SSH with secrets
+4. **deploy** – real delivery via FTP, SSH, and GitHub Pages
 
 These examples can't be run in this empty repository (they assume a real project or real secrets), but they are complete, commented YAML files meant for reading and reuse in your own projects.
 
@@ -41,9 +41,11 @@ These examples can't be run in this empty repository (they assume a real project
   - [CI for real projects](#ci-for-real-projects)
     - [Frontend CI – Node.js](#frontend-ci--nodejs)
     - [Backend CI – Python](#backend-ci--python)
+    - [Matrix testing](#matrix-testing)
   - [Deployment](#deployment)
     - [FTP deploy – shipping a static website live](#ftp-deploy--shipping-a-static-website-live)
     - [Angular build & deploy](#angular-build--deploy)
+    - [GitHub Pages deploy](#github-pages-deploy)
 - [Contributing](#contributing)
 - [Overall goal](#overall-goal)
 - [License](#license)
@@ -102,9 +104,11 @@ The most important project files are organized as follows:
   - **`ci/`**
     - `frontend.yml`: CI workflow for a Node.js frontend with install, test, and build.
     - `backend.yml`: CI workflow for a Python backend with install, test, and pytest.
+    - `matrix.yml`: Runs the same test job in parallel across multiple Node.js versions.
   - **`deploy/`**
     - `ftp.yml`: Real-world example for uploading a static HTML/CSS website via FTP with GitHub secrets.
     - `angular.yml`: Build, test, and deployment of an Angular app via SSH/SCP.
+    - `github-pages.yml`: Deploys a static site to GitHub Pages using GitHub's built-in OIDC permissions, no secrets required.
 - `LICENSE`: MIT license – the code may be freely used for learning, copying, and adapting.
 - `Readme.md`: Describes the purpose, structure, and usage of the demo.
 
@@ -190,6 +194,10 @@ Artifacts are useful for things like build results, test reports, or log files.
 
 `examples/ci/backend.yml` demonstrates the same approach for Python projects. After setting up Python, dependencies are installed and tests are then run with `pytest`.
 
+#### Matrix testing
+
+`examples/ci/matrix.yml` uses `strategy.matrix` to run the same `test` job multiple times in parallel, once per Node.js version listed in the matrix (18, 20, 22). GitHub Actions shows each run separately, so it's easy to see at a glance which versions pass and which don't. This is the standard way to check compatibility across several runtime versions without duplicating the job.
+
 ### Deployment
 
 #### FTP deploy – shipping a static website live
@@ -212,6 +220,10 @@ The key principles here are:
 - `needs` prevents a deploy if the build or test fails
 - `upload-artifact` and `download-artifact` transport the result between jobs
 - secrets protect the server credentials from the code
+
+#### GitHub Pages deploy
+
+`examples/deploy/github-pages.yml` shows GitHub's own deployment model, as a contrast to the secret-based FTP and SSH examples above. Instead of storing credentials for an external server, the job requests `permissions: pages: write` and `id-token: write`, which lets GitHub issue a short-lived OIDC token at runtime. The `build` job uploads the site folder with `actions/upload-pages-artifact`, and the `deploy` job publishes it with `actions/deploy-pages` – no server, username, or password anywhere in the workflow. This is the only deploy example that could actually run successfully in a copy of this repository, provided GitHub Pages is enabled for it.
 
 ## Contributing
 
