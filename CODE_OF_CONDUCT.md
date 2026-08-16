@@ -1,57 +1,57 @@
-# Verhaltenskodex
+# Code of Conduct
 
-## Unser Anspruch
+## Our standard
 
-Dieses Projekt soll ein freundlicher und sicherer Lernort sein. Menschen mit
-unterschiedlicher Erfahrung, Herkunft und Perspektive sollen hier gemeinsam
-lernen und beitragen können.
+This project is meant to be a friendly and safe place to learn. People with
+different levels of experience, backgrounds, and perspectives should be able
+to learn and contribute here together.
 
-## Erwünschtes Verhalten
+## Expected behavior
 
-- Fragen und Fehler geduldig und sachlich behandeln
-- Rückmeldungen auf die Änderung statt auf die Person beziehen
-- Einsteigerbegriffe erklären und hilfreiche Beispiele anbieten
-- andere Sichtweisen respektieren
-- eigene Fehler offen korrigieren
+- treat questions and mistakes patiently and objectively
+- direct feedback at the change, not the person
+- explain beginner terms and offer helpful examples
+- respect other viewpoints
+- openly correct your own mistakes
 
-## Neue Workflow-Beiträge aus Forks
+## New workflow contributions from forks
 
-Diese Regel gilt für neue oder wesentlich geänderte Workflows, die künftig über
-einen Fork und Pull Request eingereicht werden.
+This rule applies to new or substantially changed workflows submitted in the
+future via a fork and pull request.
 
-Neue Workflow-Beiträge aus Forks werden nur akzeptiert, wenn sie von der
-einreichenden Person selbst geschrieben, Schritt für Schritt verstanden und bei
-Rückfragen erklärt werden können. Fertige Workflow-Dateien aus anderen Projekten
-sollen nicht unverändert übernommen werden, denn der eigene Lernweg steht im
-Mittelpunkt.
+New workflow contributions from forks are only accepted if they were written
+by the submitting person themselves, understood step by step, and can be
+explained if questions come up. Finished workflow files from other projects
+should not be copied over unchanged, since the focus is on your own learning
+process.
 
-Offizielle Dokumentationen und Beispiele dürfen als Lernhilfe dienen. Auch
-wiederverwendbare Actions wie `actions/checkout` sind als Bausteine erlaubt,
-wenn ihr Zweck verstanden und im Beispiel verständlich erklärt wird. Wesentliche
-übernommene Ideen oder Ausschnitte müssen mit ihrer Quelle gekennzeichnet werden.
+Official documentation and examples may serve as learning aids. Reusable
+actions like `actions/checkout` are also allowed as building blocks, as long
+as their purpose is understood and clearly explained in the example.
+Substantial borrowed ideas or excerpts must be credited with their source.
 
-## Nicht akzeptiertes Verhalten
+## Unacceptable behavior
 
-- Beleidigungen, Einschüchterung oder persönliche Angriffe
-- diskriminierende oder sexualisierte Sprache und Inhalte
-- absichtliches Stören von Diskussionen oder Arbeitsabläufen
-- Veröffentlichung privater Informationen ohne Zustimmung
-- wiederholte unerwünschte Kontaktaufnahme
+- insults, intimidation, or personal attacks
+- discriminatory or sexualized language and content
+- deliberately disrupting discussions or workflows
+- publishing private information without consent
+- repeated unwanted contact
 
-## Geltungsbereich
+## Scope
 
-Der Verhaltenskodex gilt in Issues, Pull Requests, Diskussionen und allen
-anderen Bereichen, in denen jemand dieses Projekt vertritt.
+This Code of Conduct applies in issues, pull requests, discussions, and all
+other spaces where someone represents this project.
 
-## Meldung und Durchsetzung
+## Reporting and enforcement
 
-Bitte diskutiere einen Vorfall nicht öffentlich. Nutze zunächst eine private
-Kontaktmöglichkeit im
-[GitHub-Profil des Maintainers](https://github.com/FriggemannMichael), ohne
-vertrauliche Details öffentlich zu nennen. Für Sicherheitslücken gilt zusätzlich
-die [Sicherheitsrichtlinie](SECURITY.md).
+Please don't discuss an incident publicly. First use a private contact
+option on the
+[maintainer's GitHub profile](https://github.com/FriggemannMichael), without
+naming confidential details publicly. For security vulnerabilities, the
+[Security Policy](SECURITY.md) also applies.
 
-Der Maintainer prüft Meldungen vertraulich und kann Beiträge bearbeiten oder
-entfernen, Verwarnungen aussprechen oder Personen zeitweise beziehungsweise
-dauerhaft von der Teilnahme ausschließen. Entscheidungen sollen nachvollziehbar,
-verhältnismäßig und zum Schutz der Gemeinschaft getroffen werden.
+The maintainer reviews reports confidentially and may edit or remove
+contributions, issue warnings, or temporarily or permanently exclude people
+from participation. Decisions should be transparent, proportionate, and made
+to protect the community.
