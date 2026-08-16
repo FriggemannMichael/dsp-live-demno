@@ -9,6 +9,9 @@ on:
   pull_request:
     # This also checks every proposed contribution before it's merged.
     branches: [ main ]
+  # Also shows the "Run workflow" button, so it can be started on demand
+  # without waiting for a push or pull request.
+  workflow_dispatch:
 
 # The workflow only needs to read the repository content and gets no write access.
 permissions:

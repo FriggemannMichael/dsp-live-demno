@@ -253,6 +253,10 @@
     margin: 0;
   }
 
+  .runnable p + p {
+    margin-top: 10px;
+  }
+
   /* Footer */
   footer {
     border-top: 1px solid var(--paper-border);
@@ -381,9 +385,9 @@
     <ul class="checks">
       <li>starter-ci</li>
       <li>repo-tour</li>
-      <li>pages-deploy</li>
     </ul>
-    <p>These three actually execute in this repository — trigger them yourself and watch them go green in the Actions tab. This page is what <code>pages-deploy</code> publishes.</p>
+    <p>Fork this repo and trigger these two yourself from the Actions tab — both accept <code>workflow_dispatch</code>, no setup required.</p>
+    <p><code>pages-deploy</code> runs automatically here on every push to <code>main</code> — it's what publishes the page you're reading right now.</p>
   </div>
 
   <footer>

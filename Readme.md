@@ -131,7 +131,7 @@ These three workflows live in `.github/workflows/` and can actually be run in th
 
 ### Starter CI
 
-`starter-ci.yml` starts on every push to `main`. The `build` job uses `actions/checkout` to load the repository content onto the runner. A shell command then prints the value of the GitHub context variable `runner.os`.
+`starter-ci.yml` starts on every push to `main`, on every pull request against `main`, and can also be triggered manually via `workflow_dispatch` in the Actions tab. The `build` job uses `actions/checkout` to load the repository content onto the runner. A shell command then prints the value of the GitHub context variable `runner.os`.
 
 ### Repo Tour
 
@@ -139,7 +139,7 @@ These three workflows live in `.github/workflows/` and can actually be run in th
 
 ### Pages deploy
 
-`pages.yml` starts on every push to `main` and publishes [`public/index.html`](public/index.html) to GitHub Pages – the live page linked at the top of this README. Unlike the FTP/SSH deploy examples under `examples/deploy/`, it needs no stored credentials: `permissions: pages: write` and `id-token: write` let GitHub issue a short-lived OIDC token to the job at runtime. The `build` job uploads the `public/` folder with `actions/upload-pages-artifact`, and the `deploy` job publishes it with `actions/deploy-pages`.
+`pages.yml` starts on every push to `main` and publishes [`public/index.html`](public/index.html) to GitHub Pages – the live page linked at the top of this README. Unlike `starter-ci.yml` and `repo-tour.yml`, it deliberately has **no** `workflow_dispatch` trigger: deploying the live site is something only the repository owner does by pushing, not something to invite visitors or contributors to trigger on demand. Unlike the FTP/SSH deploy examples under `examples/deploy/`, it needs no stored credentials: `permissions: pages: write` and `id-token: write` let GitHub issue a short-lived OIDC token to the job at runtime. The `build` job uploads the `public/` folder with `actions/upload-pages-artifact`, and the `deploy` job publishes it with `actions/deploy-pages`.
 
 ## Reference examples (`examples/`)
 
